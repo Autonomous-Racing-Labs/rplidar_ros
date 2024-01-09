@@ -425,7 +425,10 @@ public:
         start_motor_service = this->create_service<std_srvs::srv::Empty>("start_motor", 
                                 std::bind(&RPlidarNode::start_motor,this,std::placeholders::_1,std::placeholders::_2));
 
-        //drv->setMotorSpeed();
+        if(scan_frequency == 20.0) {
+		RCLCPP_INFO(this->get_logger(), "configuring motor to spin at 1200RPM to support 20Hz scan frequency.");
+		drv->setMotorSpeed(1200); //1200 RPM are required for 20Hz on RPLidar S3
+	}
 
         rclcpp::Time start_scan_time;
         rclcpp::Time end_scan_time;
