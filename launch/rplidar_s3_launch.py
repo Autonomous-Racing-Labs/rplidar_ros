@@ -16,8 +16,10 @@ def generate_launch_description():
     serial_baudrate = LaunchConfiguration('serial_baudrate', default='1000000')
     frame_id = LaunchConfiguration('frame_id', default='laser')
     inverted = LaunchConfiguration('inverted', default='false')
+    flip_x_axis = LaunchConfiguration('flip_x_axis', default='true')
     angle_compensate = LaunchConfiguration('angle_compensate', default='true')
     scan_mode = LaunchConfiguration('scan_mode', default='DenseBoost')
+    scan_frequency = LaunchConfiguration('scan_frequency', default='20.0')
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -34,7 +36,7 @@ def generate_launch_description():
             'serial_baudrate',
             default_value=serial_baudrate,
             description='Specifying usb port baudrate to connected lidar'),
-        
+
         DeclareLaunchArgument(
             'frame_id',
             default_value=frame_id,
@@ -44,6 +46,11 @@ def generate_launch_description():
             'inverted',
             default_value=inverted,
             description='Specifying whether or not to invert scan data'),
+
+        DeclareLaunchArgument(
+            'flip_x_axis',
+            default_value=flip_x_axis,
+            description='Specifying whether or not to flip direction of the x axis'),
 
         DeclareLaunchArgument(
             'angle_compensate',
@@ -64,9 +71,10 @@ def generate_launch_description():
                          'serial_baudrate': serial_baudrate,
                          'frame_id': frame_id,
                          'inverted': inverted,
+                         'flip_x_axis': flip_x_axis,
                          'angle_compensate': angle_compensate,
                          'scan_mode': scan_mode,
-			 'scan_frequency': 20.0}],
+			 'scan_frequency': scan_frequency}],
             output='screen'),
     ])
 
